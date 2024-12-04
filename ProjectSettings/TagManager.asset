@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Dirty
   - Door
+  - Key
   layers:
   - Default
   - TransparentFX

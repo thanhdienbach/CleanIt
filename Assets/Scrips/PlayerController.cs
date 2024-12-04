@@ -12,14 +12,18 @@ public class PlayerController : MonoBehaviour
     public Vector3 direction;
     private Rigidbody rb;
 
-    private int count;
+    private int countDir;
+    private int countKey;
     public TextMeshProUGUI countText;
+    public TextMeshProUGUI countK;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        count = 0;
+        countDir = 0;
+        countKey = 0;
         SetCountText();
+        SetCountKey();
     }
 
     void FixedUpdate()
@@ -33,18 +37,28 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Dirty"))
         {
             other.gameObject.SetActive(false);
-            count += 1;
+            countDir += 1;
             SetCountText();
+        }
+        if (other.gameObject.CompareTag("Key"))
+        {
+            other.gameObject.SetActive(false);
+            countKey += 1;
+            SetCountKey();
         }
         if (other.gameObject.CompareTag("Door"))
         {
-            other.gameObject.SetActive(false);
+            other.gameObject.SetActive(true);
             SceneManager.LoadScene(1);
         }
     }
 
     void SetCountText()
     {
-        countText.text = "Score: " + count.ToString();
+        countText.text = "Score: " + countDir.ToString();
+    }
+    void SetCountKey()
+    {
+        countK.text = "Key:  " + countKey.ToString();
     }
 }

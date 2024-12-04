@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlaySoundAtRandomIntervals : MonoBehaviour
 {
-    public float minSeconds = 5f; // Minimum interval to wait before playing sound.
-    public float maxSeconds = 15f; // Maximum interval to wait before playing sound.
+    public float minSeconds = 4f; 
+    public float maxSeconds = 16f; 
 
     private AudioSource audioSource;
 
