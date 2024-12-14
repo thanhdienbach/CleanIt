@@ -6,7 +6,10 @@ TagManager:
   tags:
   - Dirty
   - Door
-  - Key
+  - Garbage
+  - Plastic
+  - Metal
+  - Room
   layers:
   - Default
   - TransparentFX
