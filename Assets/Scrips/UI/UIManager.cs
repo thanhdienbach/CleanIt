@@ -1,23 +1,22 @@
-﻿using UnityEngine;
+using UnityEngine;
 using TMPro;
+using NUnit.Framework;
 
 public class UIManager : MonoBehaviour
 {
-    // Singleton đảm bảo chỉ có một UIManager trong game
+
     public static UIManager Instance { get; private set; }
 
-    public TextMeshProUGUI garbageText;
-    public TextMeshProUGUI plasticText;
-    public TextMeshProUGUI metalText;
-    public TextMeshProUGUI playerInfoText;
+    public PopupManager popupManager;
+    public AudioSource backAudio;    
+    
 
     private void Awake()
     {
-        // Đảm bảo Singleton
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Không bị hũy khi chuyển sence
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -26,16 +25,15 @@ public class UIManager : MonoBehaviour
     }
     void Start()
     {
-        
+        popupManager.ShowPopup<MenuPopup>();
+        popupManager.ShowPopup<MainMenuPopup>();
+        popupManager.ShowPopup<WaitingPopup>();
+        backAudio = GetComponent<AudioSource>();
     }
 
+    // Update is called once per frame
     void Update()
     {
-        ShowTextToUI();
-    }
-
-    void ShowTextToUI()
-    {
-        playerInfoText.text = DataManager.Instance.loadData.PlayerName + " - Lv." + DataManager.Instance.loadData.Levle;
+        
     }
 }

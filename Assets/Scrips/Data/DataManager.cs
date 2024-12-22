@@ -1,111 +1,131 @@
-﻿using System.IO;
-using System.Collections.Generic;
+﻿using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
 
-public class DataManager : MonoBehaviour
+public class DataManager
 {
+    // Biến static lưu trữ instance duy nhất
+    public static DataManager _instance;
 
-    // Singleton để đảm bảo chỉ có một DataManager trong game
-    public static DataManager Instance { get; private set; }
+    // Object khóa để đảm bảo thread-safety 
+    private static readonly object _lock = new object();
 
-    // Đường dẫn file lưu trữ
-    private string filePath;
-
-    // Biến lấy dữ liệu từ file lưu trữ json
-    public PlayerData loadData;
-
-
-    private void Awake()
+    // Thuộc tính singleton
+    public static DataManager Instance
     {
-        // Đảm bảo Singletan
-        if (Instance == null)
+        get
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject); // Không bị hũy khi chuyển sence
+            if (_instance == null) // Kiểm tra nếu instance chưa được khởi tại
+            {
+                lock (_lock) // Đảm bảo chỉ có môt thread được truy cập
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new DataManager();
+                    }
+                }
+            }
+            return _instance;
+        }
+    }
+
+    // Constructer để ngăn khởi tạo từ bên ngoài
+    private DataManager() { }
+
+    public void SavePlayerData(string playerName, int exp, int garbageCount, int plasticCount, int metalCount)
+    {
+        PlayerPrefs.SetString("Player Name", playerName);
+        PlayerPrefs.SetInt("Exp", exp);
+        PlayerPrefs.SetInt("Garbage Count", garbageCount);
+        PlayerPrefs.SetInt("Plastic Count", plasticCount);
+        PlayerPrefs.SetInt("Metal Count", metalCount);
+        PlayerPrefs.Save();
+        Debug.Log(plasticCount);
+    }
+    // Lưu dữ liệu số
+    public void SaVeInt(string key, int value)
+    {
+        PlayerPrefs.SetInt(key, value);
+        PlayerPrefs.Save(); // Đảm bảo dữ liệu được lưu vào store
+        Debug.Log($"Save int data: {key} = {value}");
+    }
+
+    // Load dữ liệu số
+    public int LoadInt(string key, int defaultValue = 0)
+    {
+        if (PlayerPrefs.HasKey(key))
+        {
+            int value = PlayerPrefs.GetInt(key);
+            Debug.Log($"Loaded int data: {key} = {value}");
+            return value;
         }
         else
         {
-            Destroy(gameObject);
+            Debug.LogWarning($"{key} not found. Returning default value: {defaultValue}");
+            return defaultValue;
         }
     }
-    void Start()
+
+    // Lưu dữ liệu chuổi
+    public void SaveString(string key, string value)
     {
-        filePath = Application.persistentDataPath + "/playerdata.Json";
-        PlayerData newData = new PlayerData("First Player", 1, 0);
-        SavePlayerData(newData);
-        InitializeData();
+        PlayerPrefs.SetString(key, value);
+        PlayerPrefs.Save(); 
+        Debug.Log($"Save string data: {key} = {value}");
     }
 
-    void Update()
+    // Load dữ liệu chuổi
+    public string LoadString(string key, string defaultValue)
     {
-
-    }
-
-    // Hàm khởi tạo dữ liệu hoặc load từ file /JSON
-    public void InitializeData()
-    {
-        loadData =  LoadPlayerData();
-        LoadGameSettings();
-    }
-
-    // Hàm lưu dữ liệu người chơi
-    public void SavePlayerData(PlayerData data)
-    {
-        string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(filePath, json);
-        Debug.Log("Dữ liệu đã được lưu tại: " + filePath);
-    }
-
-    // Hàm load dữ liệu người chơi
-    public PlayerData LoadPlayerData()
-    {
-        if (File.Exists(filePath))
+        if (PlayerPrefs.HasKey(key))
         {
-            string json = File.ReadAllText(filePath);
-            return JsonUtility.FromJson<PlayerData>(json);
+            string value = PlayerPrefs.GetString(key);
+            Debug.Log($"Loaded string data: {key} = {value}");
+            return value;
         }
         else
         {
-            Debug.Log("File không tồn tại");
-            return null;
+            Debug.LogWarning($"Key {key} not found. Returning default value: {defaultValue}");
+            return defaultValue;
         }
     }
 
-    public void LoadGameSettings()
-    {
-        
-    }
-
 }
 
-[System.Serializable]
-public class PlayerData
-{
-    public string PlayerName;
-    public int Levle;
-    public int Score;
+//[System.Serializable]
+//public class PlayerData
+//{
+//    public string PlayerName;
+//    public int Levle;
+//    public int Experiance;
+//    public int GarbageCount;
+//    public int PlasticCount;
+//    public int MetalCount;
 
-    public PlayerData(string _PlayerName, int _Level, int _Score)
-    {
-        PlayerName = _PlayerName;
-        Levle = _Level;
-        Score = _Score;
-    }
-}
+//    public PlayerData(string _PlayerName, int _Level, int _Experiance, int _GarbageCount, int _PlasticCount, int _MetalCount)
+//    {
+//        PlayerName = _PlayerName;
+//        Levle = _Level;
+//        Experiance = _Experiance;
+//        GarbageCount = _GarbageCount;
+//        PlasticCount = _PlasticCount;
+//        MetalCount = _MetalCount;
+//    }
 
-[System.Serializable]
-public class GameSettings
-{
-    public float Volum;
-    public float TouchSensitivity;
+    
+//}
 
-    public GameSettings(float _Volum, float _TouchSensitivity)
-    {
-        Volum = _Volum;
-        TouchSensitivity = _TouchSensitivity;
-    }
-}
+//[System.Serializable]
+//public class GameSettings
+//{
+//    public float Volum;
+//    public float TouchSensitivity;
+
+//    public GameSettings(float _Volum, float _TouchSensitivity)
+//    {
+//        Volum = _Volum;
+//        TouchSensitivity = _TouchSensitivity;
+//    }
+//}
 
 
 
