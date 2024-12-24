@@ -68,21 +68,17 @@ public class GameManager : MonoBehaviour
         {
             case GameState.MainMenu:
                 Time.timeScale = 0.0f;
-                Debug.Log("Enter maimenu state");
                 break;
             case GameState.Playing:
                 Time.timeScale = 1.0f;
                 PlayerEvent.Instance.LoadScore();
-                Debug.Log("Enter playing state");
                 break;
             case GameState.Paused:
                 PlayerEvent.Instance.SavePlayerData();
                 Time.timeScale = 0.0f;
-                Debug.Log("Enter paused state");
                 break;
             case GameState.GameOver:
                 Time.timeScale = 0.0f;
-                Debug.Log("Enter gameover state");
                 break;
         }
     }

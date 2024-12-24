@@ -1,5 +1,4 @@
-﻿using UnityEditorInternal;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DataManager
 {
@@ -91,80 +90,5 @@ public class DataManager
 
 }
 
-//[System.Serializable]
-//public class PlayerData
-//{
-//    public string PlayerName;
-//    public int Levle;
-//    public int Experiance;
-//    public int GarbageCount;
-//    public int PlasticCount;
-//    public int MetalCount;
-
-//    public PlayerData(string _PlayerName, int _Level, int _Experiance, int _GarbageCount, int _PlasticCount, int _MetalCount)
-//    {
-//        PlayerName = _PlayerName;
-//        Levle = _Level;
-//        Experiance = _Experiance;
-//        GarbageCount = _GarbageCount;
-//        PlasticCount = _PlasticCount;
-//        MetalCount = _MetalCount;
-//    }
-
-    
-//}
-
-//[System.Serializable]
-//public class GameSettings
-//{
-//    public float Volum;
-//    public float TouchSensitivity;
-
-//    public GameSettings(float _Volum, float _TouchSensitivity)
-//    {
-//        Volum = _Volum;
-//        TouchSensitivity = _TouchSensitivity;
-//    }
-//}
-
-
-
-
-
-
-
-
-
-
-//public class PlayerData
-//{
-
-//}
-//public class LevelConfig
-//{
-//    public List<int> listSpawnItemsId;
-//}
-//public class GameConfig
-//{
-//    public Dictionary<int, ItemConfig> dictItems;
-//}
-
-//public class InventoryData
-//{
-//    /// <summary>
-//    /// key : item id
-//    /// </summary>
-//    public Dictionary<int, List<ItemData>> dictItemData;
-//}
-//public class ItemConfig
-//{
-//    public float spawnChance;
-//    public int id;
-//}
-
-//public class ItemData {
-//    public int id;
-//    public bool isUnlockable;
-//}
 
 

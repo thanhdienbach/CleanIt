@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using NUnit.Framework;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -8,8 +9,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
 
     public PopupManager popupManager;
-    public AudioSource backAudio;    
-    
+    public AudioSource backAudio;
 
     private void Awake()
     {

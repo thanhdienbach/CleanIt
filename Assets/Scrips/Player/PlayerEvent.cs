@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class PlayerEvent : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class PlayerEvent : MonoBehaviour
     public int countGarbage;
     public int countPlastic;
     public int countMetal;
+
+    [SerializeField] Slider expBar;
+    [SerializeField] Button levleUpButton;
 
     public AudioSource clearAudio;
 
@@ -100,7 +104,12 @@ public class PlayerEvent : MonoBehaviour
             {
                 playerExp += 10;
             }
-        }  
+        }
+        if (playerExp == 20)
+        {
+            expBar.gameObject.SetActive(false);
+            levleUpButton.gameObject.SetActive(true);
+        }
     }
 
     void VFX()
