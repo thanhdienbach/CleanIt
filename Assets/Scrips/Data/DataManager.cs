@@ -38,14 +38,12 @@ public class DataManager
         PlayerPrefs.SetInt("Plastic Count", plasticCount);
         PlayerPrefs.SetInt("Metal Count", metalCount);
         PlayerPrefs.Save();
-        Debug.Log(plasticCount);
     }
     // Lưu dữ liệu số
     public void SaVeInt(string key, int value)
     {
         PlayerPrefs.SetInt(key, value);
         PlayerPrefs.Save(); // Đảm bảo dữ liệu được lưu vào store
-        Debug.Log($"Save int data: {key} = {value}");
     }
 
     // Load dữ liệu số
@@ -54,7 +52,6 @@ public class DataManager
         if (PlayerPrefs.HasKey(key))
         {
             int value = PlayerPrefs.GetInt(key);
-            Debug.Log($"Loaded int data: {key} = {value}");
             return value;
         }
         else
@@ -69,7 +66,6 @@ public class DataManager
     {
         PlayerPrefs.SetString(key, value);
         PlayerPrefs.Save(); 
-        Debug.Log($"Save string data: {key} = {value}");
     }
 
     // Load dữ liệu chuổi
@@ -78,12 +74,10 @@ public class DataManager
         if (PlayerPrefs.HasKey(key))
         {
             string value = PlayerPrefs.GetString(key);
-            Debug.Log($"Loaded string data: {key} = {value}");
             return value;
         }
         else
         {
-            Debug.LogWarning($"Key {key} not found. Returning default value: {defaultValue}");
             return defaultValue;
         }
     }
